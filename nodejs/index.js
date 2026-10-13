@@ -1,18 +1,16 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
 
-const filePath = path.join(__dirname, 'webdev.txt');
+const filePath = path.join(__dirname, 'notes.txt');
 
 async function manageFile() {
-  
-  await fs.writeFile(filePath, 'Mera pehla note.\n', 'utf8');
-  console.log('File create aur write ho gayi.');
+  await fs.writeFile(filePath, 'My first note.\n', 'utf8');
+  console.log('The file was created and written successfully.');
 
   let content = await fs.readFile(filePath, 'utf8');
-  console.log('Pehle ka content:', content.trim());
+  console.log('Original content:', content.trim());
 
-  
-  content += 'Yeh line baad mein update karke add ki gayi hai.\n';
+  content += 'This line was added during the update.\n';
   await fs.writeFile(filePath, content, 'utf8');
 
   const updatedContent = await fs.readFile(filePath, 'utf8');
@@ -20,6 +18,6 @@ async function manageFile() {
 }
 
 manageFile().catch((error) => {
-  console.error('File operation fail hui:', error.message);
+  console.error('File operation failed:', error.message);
   process.exitCode = 1;
 });
